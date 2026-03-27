@@ -1,0 +1,60 @@
+
+.SidebarParentContainer{
+    width: 80px;
+    padding-top: 8px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transition: all 0.3s ease-in-out;
+
+    .MenuIconContainer{
+       display: flex;
+       align-items: center;
+       min-height: 48px;
+
+
+       .IconContainer{
+        min-width: 48px;
+        height: 48px;
+        border-radius: 100%;
+        font-size: 24px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-left: 12px;
+        cursor: pointer;
+       }
+
+
+       .IconLabeContainer{
+        font-size: 16px;
+        margin-left: 20px;
+        color: rgb(32, 33green, 36blue);
+        font-weight: 500;
+        line-height: 1.25rem;
+       }
+    }
+
+    .MenuIconContainer:hover{
+        background-color: #f1f3f4; 
+        border-radius: 0px 25px 25px 0px;
+    }
+        .MenuIconContainer.active{
+            .IconContainer{
+                background-color: #fdf0c3;
+
+            }
+        }
+}
+.SidebarParentContainer:hover{
+    width: 240px;
+
+     .MenuIconContainer.active{
+        background-color: #fdf0c3;
+        border-radius: 0px 25px 25px 0px;
+        .IconContainer{
+            background-color: transparent;
+
+        }
+    }
+}

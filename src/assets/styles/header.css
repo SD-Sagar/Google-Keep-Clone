@@ -1,0 +1,24 @@
+.HeaderParentContainer{
+    width: 100%;
+    display: flex;
+    min-height: 64px;
+    padding: 8px;
+    align-items: center;
+    border-bottom: 1px solid #dadce0;
+
+    .MenubarIconCOntainer{
+        border-radius: 50%;
+        display: inline-block;
+        margin: 0 4px;
+        padding: 12px;
+        cursor: pointer;
+    }
+
+    .HeaderTitle{
+        padding-left: 4px;
+        opacity: 1;
+        color: #1f1f1f;
+        font-size: 22px;    
+    }
+    
+}
