@@ -1,0 +1,91 @@
+.ParentCreateContentContainer{
+    display: flex;
+    justify-content: center;
+    align-self: center;
+    width: 100%;
+    position: relative;
+
+    .CreateContentContainer{
+        width: 600px;
+        margin: 32px auto 16px auto;
+        /* min-height: 45px; */
+        border: 1px solid #e0e0e0;
+        box-shadow: 0 1px 2px 0 rgba(60, 64, 67, 0.3), 0 2px 6px 2px rgba(60, 64, 67, 0.15);
+        border-radius: 8px;
+        display: flex;
+        flex-direction: column;
+        overflow-y: auto;
+        max-height: 600px;
+        background-size: cover;
+        /* padding: 12px 16px 12px 16px; */
+
+        .notesContentInputContainer{
+            padding: 12px 16px;
+            outline: none;
+            line-height: 1.25rem;
+            font-size: 0.875rem;
+            letter-spacing: .0142857143em;
+            font-weight: 400;
+            color: rgb(32,33,36);
+        }
+        .titleContentInputContainer{
+            padding: 12px 16px;
+            outline: none;
+            line-height: 1.25rem;
+            font-size: 0.875rem;
+            letter-spacing: .0142857143em;
+            font-weight: 400;
+            color: rgb(32,33,36);
+        }
+
+        .noteFooterContainer{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            color: rgba(0,0,0,0.54);
+            font-size: 12px;
+            line-height: 26px;
+            margin-top: 4px;
+
+            .coloPallateContainer{
+                height: 32px;
+                margin: 0 8px;
+                width: 32px;
+                border-radius: 50%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+            .closeButtonContainer{
+                    color: rgba(0, 0, 0, 0.87);
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;    
+                    line-height: 1.25rem;
+                    font-size: .875rem;
+                    letter-spacing: .0178571429em;
+                    font-weight: 500;
+                    height: 36px;
+                    padding: 8px 24px;
+                    border-radius: 4px;
+                    background-color: transparent;
+                    border: none;
+            }
+            .closeButtonContainer:hover{
+                background-color: rgba(95,99,104,0.039);
+            }
+            .coloPallateContainer:hover{
+                background-color: rgba(95,99,104,0.039);
+            }
+        }
+    }
+}
+
+.notesContentInputContainer:empty::before{
+    content: attr(data-placeholder);
+    color: rgb(32,33,36);
+}
+.titleContentInputContainer:empty::before{
+    content: attr(data-placeholder);
+    color: rgb(32,33,36);
+}
