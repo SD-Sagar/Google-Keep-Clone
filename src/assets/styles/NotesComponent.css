@@ -1,0 +1,95 @@
+.NotesparentContainer{
+       width: 100%;
+       margin-bottom: 15px;    
+       background-color: #fff;
+       border: 1px solid #e0e0e0;
+       position: relative;
+       border-radius: 8px;
+       transition: all 0.3s ease;
+       min-height: 150px;
+       break-inside: avoid;
+       cursor: pointer;
+       page-break-inside: avoid;
+       -webkit-column-break-inside: avoid;
+       display: flex;
+       flex-direction: column;
+       padding: 12px 0px;
+       
+       
+       .titleContentContainer{     
+                   line-height: 1.5rem;
+                   font-size: 1rem;
+                   letter-spacing: 0.00625em;
+                   font-weight: 500;
+                   /* padding-top: 12px; */
+                   margin-bottom: 12px;
+                   color: #202124;
+                   padding: 12px 16px;
+       }
+       .ContentContainer{
+                     line-height: 1.25rem;
+                     font-size: .875rem;
+                     letter-spacing: .0142857143em;
+                     font-weight: 400;
+                     color: rgb(60, 60, 60);
+                     margin-bottom: 16px;
+                     padding: 12px 16px;
+       }
+       .pinnedbutton{
+              position: absolute;
+              top: 12px;
+              right: 16px;
+              width: 34px;
+              height: 34px;
+              border-radius: 100%;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              cursor: pointer;
+              opacity: 0;
+              transition: all 0.5s ease;
+       }
+       .buttonActionButtonContainer{
+              position: absolute;
+              display: flex;
+              align-items: center;
+              bottom: 8px;
+              transition: all 0.5s ease;
+              padding: 0px 4px;
+              .buttonActionButtonwrapper{
+                    width: 34px;
+                    height: 34px;
+                    border-radius: 100%;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    cursor: pointer;
+                    opacity: 0;
+                    transition: all 0.5s ease;
+
+                     img{
+                     width: 29px;
+                     height: 29px;
+                    }
+              }
+              .buttonActionButtonwrapper:hover{
+                     background-color: #f5f5f5 ;
+              }
+              
+       }
+       .pinnedbutton:hover{
+              background-color: #f5f5f5 ;
+       }
+}
+.NotesparentContainer:hover{
+       .pinnedbutton{
+              opacity: 1;
+       }
+       .buttonActionButtonContainer{
+
+              .buttonActionButtonwrapper{
+                     opacity: 1;   
+              }
+              
+       }
+}

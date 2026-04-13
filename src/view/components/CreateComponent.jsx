@@ -2,6 +2,9 @@ import React, { useCallback, useRef, useState } from 'react'
 import '../../assets/styles/CreateComponent.css'
 import colorpallate from '../../assets/styles/colorpallate.svg'
 import PopOver from './PopOver'
+import { useDispatch } from 'react-redux'
+import { createNote } from '../../Redux/Slices/notesSlice'
+
 
 const initialstate = {
         focused:false,
@@ -13,7 +16,11 @@ const initialstate = {
 
 function CreateComponent() {
     const [info,setInfo] = useState({initialstate})
+    // const incomingState = useSelector((state)=>state);
+    // console.log(incomingState); 
+    const dispatch = useDispatch();
     const editableRef = useRef(null)
+    const editableTitleRef = useRef(null)
     const toggleBackgroundOptions = (val)=>{
         setInfo((prev)=>({...prev,backgroundOptions:val?val:!prev.backgroundOptions}))
     }
@@ -24,11 +31,26 @@ function CreateComponent() {
         }))
   }
 
-  const handleReset = useCallback(()=>{
-                        setInfo((prev)=>({...prev, resetcompletecomponent:true}))
+  const handleReset = useCallback(() => {
+          
+                      const payload = {
+                        title:editableTitleRef.current.innerText,
+                        content: editableRef.current.innerText,
+                        activebackgroundcolor:info?.activebackgroundcolor || '',
+                        activebackgroundimage:info?.activebackgroundimage || '',
+                        label:'notes',
+                        pinned:false,
+                        id:crypto.randomUUID(),
+                      };
+                      dispatch(createNote(payload));  
+
+
+                        
+                        // setInfo((prev)=>({...prev, resetcompletecomponent:true}))
                         editableRef.current.innerText='';
+                        editableTitleRef.current.innerText='';
                         setInfo({...initialstate, resetcompletecomponent:true})
-                      },[])
+                      },[editableTitleRef,editableRef,dispatch,info?.activebackgroundcolor,info?.activebackgroundimage])
 
   const handleresetchanges = useCallback((val)=>{
                         setInfo((prev)=>({...prev, resetcompletecomponent:val}))  
@@ -38,10 +60,11 @@ function CreateComponent() {
     <div className='ParentCreateContentContainer'>
      <div className="CreateContentContainer"
           style={{
-          backgroundColor: info.activebackgroundcolor || '',
-          backgroundImage: info.activebackgroundimage? `url(${info.activebackgroundimage})`: 'none'}}>
+          backgroundColor: info?.activebackgroundcolor || '',
+          backgroundImage: info?.activebackgroundimage? `url(${info.activebackgroundimage})`: 'none'}}>
           {info?.focused &&(
             <div className='titleContentInputContainer'
+               ref={editableTitleRef}
                contentEditable='true'
                spellCheck='false'
                aria-multiline='true'    
