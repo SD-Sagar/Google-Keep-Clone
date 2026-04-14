@@ -1,0 +1,6 @@
+.notesrendercontainer{
+        /* display: flex;
+        flex-wrap: wrap; */
+        columns: 400px;
+        margin: 15px;
+    }

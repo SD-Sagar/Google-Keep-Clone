@@ -27,9 +27,17 @@ export const notesSlice = createSlice({
     reducers:{
         createNote: (state,action)=>{
             state.notes.push(action.payload);
+        },
+        updateNote: (state,action)=>{
+            const {index,payload} = action.payload;
+            state.notes[index]={...state.notes[index],...payload}
+        },
+        deletenote:(state,action)=>{
+            const {index} = action.payload;
+            state.notes?.splice(index,1);
         }
     }
 })
 
-export const {createNote} = notesSlice.actions;
+export const {createNote,updateNote,deletenote} = notesSlice.actions;
 export default notesSlice.reducer;

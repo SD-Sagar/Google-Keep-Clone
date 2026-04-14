@@ -57,7 +57,7 @@ const Home = () => {
       <CreateComponent/>
       <div className="notesrendercontainer">
          {notes?.filter((ele)=>ele?.label==='notes')?.map((item,index)=>(
-            <NoteComponent key={index} data={item}/>
+            <NoteComponent key={index} data={item} source={'notes'}/>
          ))}   
       </div>
     </div>
