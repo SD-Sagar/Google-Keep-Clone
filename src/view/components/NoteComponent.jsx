@@ -3,9 +3,10 @@ import '../../assets/styles/NotesComponent.css'
 import pinned from '../../assets/styles/pinned.svg'
 import archivedown from '../../assets/styles/archive-down.svg'    
 import archiveup from '../../assets/styles/archive-up.svg'    
+import pinneddown from '../../assets/styles/pinned-down.svg'    
 import { useDispatch, useSelector } from 'react-redux'
 import { deletenote, updateNote } from '../../Redux/Slices/notesSlice'
-const NoteComponent = ({data , source}) => {
+const NoteComponent = ({data , source , onClick}) => {
      const dispatch = useDispatch();
      const {notes = []} = useSelector((state)=>state.notes);
      const editableContentRef = useRef(null);
@@ -18,7 +19,8 @@ const NoteComponent = ({data , source}) => {
           }
      },[data])
       
-     const handleActionButtonClick = useCallback((type,value)=>{
+     const handleActionButtonClick = useCallback((event,type,value)=>{
+          event.stopPropagation();
           const {id} = value;
           let index = -1;
           for(let i=0;i<notes?.length;i++){
@@ -51,15 +53,14 @@ const NoteComponent = ({data , source}) => {
           }
           dispatch(updateNote({index,payload:updatednotesObject}));   
           // console.log('updatednotesObject',updatednotesObject);
-          
      },[notes]);
 
      const handleFooterOptions = useCallback(()=>{
           if(source === 'notes'){                                                                                                                                                                                                                                                                      
                return(
                     <>
-                         <div className="buttonActionButtonwrapper" onClick={()=>handleActionButtonClick('archive',data)}><img src={archivedown} alt="archive" /></div>
-                         <div className="buttonActionButtonwrapper" onClick={()=>handleActionButtonClick('trash',data)}><i class="fa-solid fa-trash"></i></div>
+                         <div className="buttonActionButtonwrapper" onClick={(e)=>handleActionButtonClick(e,'archive',data)}><img src={archivedown} alt="archive" /></div>
+                         <div className="buttonActionButtonwrapper" onClick={(e)=>handleActionButtonClick(e,'trash',data)}><i class="fa-solid fa-trash"></i></div>
                     
                     </>
                )
@@ -67,8 +68,8 @@ const NoteComponent = ({data , source}) => {
           if(source === 'archive'){
                return(
                     <>
-                         <div className="buttonActionButtonwrapper" onClick={()=>handleActionButtonClick('unarchive',data)}><img src={archiveup} alt="Unarchive" /></div>
-                         <div className="buttonActionButtonwrapper" onClick={()=>handleActionButtonClick('trash',data)}><i class="fa-solid fa-trash"></i></div>
+                         <div className="buttonActionButtonwrapper" onClick={(e)=>handleActionButtonClick(e,'unarchive',data)}><img src={archiveup} alt="Unarchive" /></div>
+                         <div className="buttonActionButtonwrapper" onClick={(e)=>handleActionButtonClick(e,'trash',data)}><i class="fa-solid fa-trash"></i></div>
                     
                     </>
                )
@@ -76,8 +77,8 @@ const NoteComponent = ({data , source}) => {
           if(source === 'trash'){
                return(
                     <>
-                         <div className="buttonActionButtonwrapper" onClick={()=>handleActionButtonClick('deleteforever',data)}><i class="fa-solid fa-trash"></i></div>
-                         <div className="buttonActionButtonwrapper" onClick={()=>handleActionButtonClick('restore',data)}><i class="fa-solid fa-trash-arrow-up"></i></div>
+                         <div className="buttonActionButtonwrapper" onClick={(e)=>handleActionButtonClick(e,'deleteforever',data)}><i class="fa-solid fa-trash"></i></div>
+                         <div className="buttonActionButtonwrapper" onClick={(e)=>handleActionButtonClick(e,'restore',data)}><i class="fa-solid fa-trash-arrow-up"></i></div>
                     
                     </>
                )
@@ -86,15 +87,16 @@ const NoteComponent = ({data , source}) => {
 
   return(
        <div className='NotesparentContainer' style={{backgroundColor:data?.activebackgroundcolor || '',
-                                                     backgroundImage:data?.activebackgroundimage ? `url(${data?.activebackgroundimage})` : ''}}>
+                                                     backgroundImage:data?.activebackgroundimage ? `url(${data?.activebackgroundimage})` : '',backgroundSize:data?.activebackgroundimage?'cover':'',}}
+                                             onClick={()=>onClick(data)}>
             <div className="titleContentContainer" 
                  ref={editableTitleRef}
                  ></div>
             <div className="ContentContainer" 
                  ref={editableContentRef}
                  ></div>
-            {source==='notes'&&(<div className="pinnedbutton" onClick={()=>handleActionButtonClick('pinned',data)}>
-                    <img src={pinned} alt="pin" />
+            {source==='notes'&&(<div className={`pinnedbutton ${data?.pinned ? 'pinned' : ''}`} onClick={(e)=>handleActionButtonClick(e,'pinned',data)}>
+                    <img src={data?.pinned?pinneddown:pinned} alt="pin" />
                  </div>)}    
             <div className="buttonActionButtonContainer">
                {handleFooterOptions(source)}

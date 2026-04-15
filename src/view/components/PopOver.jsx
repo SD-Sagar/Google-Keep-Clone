@@ -105,9 +105,17 @@ const initialstate = {
 
 }
 
-const PopOver = ({ open, onclose ,handlebackgroundoptionchange ,resetcompletecomponent,handleresetchanges }) => {
+const PopOver = ({ open, onclose ,handlebackgroundoptionchange ,resetcompletecomponent,handleresetchanges , customOuterContainerStyle={}, activebackgroundcolor,activebackgroundimage, }) => {
 
   const [info,setInfo] = useState({initialstate})
+
+  useEffect(()=>{
+    setInfo((prev)=>({
+      ...prev,
+      backgroundcolor:activebackgroundcolor,
+      backgroundimage:activebackgroundimage,
+    }));
+  },[activebackgroundcolor,activebackgroundimage])
   
   useEffect(()=>{
     if(resetcompletecomponent){
@@ -129,7 +137,7 @@ const PopOver = ({ open, onclose ,handlebackgroundoptionchange ,resetcompletecom
   return open && (
     <>
       <div className="overLay" onClick={()=>onclose(false)}></div>
-      <div className='PopoverparentContainer'>
+      <div className='PopoverparentContainer' style={{...customOuterContainerStyle}}>
         <div className="popoverColorContainer">
           <div className='dropslash' style={{borderColor:info?.backgroundcolor===null?'#a140f4':''}} onClick={()=>handleBackgroundcolorClick(null)}><i class="fa-solid fa-droplet-slash"></i></div>
            {colors?.map((color,indx)=>(<ColorComponent key={indx} 

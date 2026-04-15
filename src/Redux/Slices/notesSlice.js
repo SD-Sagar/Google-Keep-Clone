@@ -8,7 +8,8 @@ const initialState = {
             // activebackgroundimage:'',
             // label:'notes',
             // }
-        ],
+           ],
+           searchQuery:'',
 
 }
 
@@ -35,9 +36,12 @@ export const notesSlice = createSlice({
         deletenote:(state,action)=>{
             const {index} = action.payload;
             state.notes?.splice(index,1);
-        }
+        },
+        updateSearchQuery:(state,action)=>{
+            state.searchQuery = action.payload;
+        },
     }
 })
 
-export const {createNote,updateNote,deletenote} = notesSlice.actions;
+export const {createNote,updateNote,deletenote,updateSearchQuery} = notesSlice.actions;
 export default notesSlice.reducer;

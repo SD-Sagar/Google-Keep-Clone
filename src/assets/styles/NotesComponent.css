@@ -49,6 +49,9 @@
               opacity: 0;
               transition: all 0.5s ease;
        }
+       .pinnedbutton.pinned{
+              opacity: 1;
+       }
        .buttonActionButtonContainer{
               position: absolute;
               display: flex;

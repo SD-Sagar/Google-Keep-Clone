@@ -1,13 +1,28 @@
-.ParentCreateContentContainer{
-    display: flex;
-    justify-content: center;
-    align-self: center;
-    width: 100%;
-    position: relative;
+.EditPopupParentContainer{
+      display: flex;
+      position: absolute;
+      top: 20%;
+      left: calc(50% - 300px);
+      background-color: #fff;
+
+    .editoverlayContainer{
+         width: 200vw;
+         height: 200vh;
+         position: absolute;
+         top: 0;
+         left:0;
+         background-color: #797a7c;
+         transform: translate(-50%,-50%);
+         opacity: 0.6;
+         transition: opacity 0.218s ease-in;
+         z-index: 4000;
+
+    }
 
     .CreateContentContainer{
         width: 600px;
-        margin: 32px auto 16px auto;
+        /* margin: 32px auto 16px auto; */
+        background-color: #fff;
         /* min-height: 45px; */
         border: 1px solid #e0e0e0;
         box-shadow: 0 1px 2px 0 rgba(60, 64, 67, 0.3), 0 2px 6px 2px rgba(60, 64, 67, 0.15);
@@ -19,6 +34,7 @@
         background-size: cover;
         background-repeat: no-repeat;
         /* padding: 12px 16px 12px 16px; */
+        z-index: 9999;
 
         .notesContentInputContainer{
             padding: 12px 16px;

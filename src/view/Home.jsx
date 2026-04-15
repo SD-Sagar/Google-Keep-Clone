@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useCallback, useMemo, useState } from 'react'
 import'../assets/styles/home.css'
 import CreateComponent from './components/CreateComponent'
 import NoteComponent from './components/NoteComponent'
 import { useSelector } from 'react-redux'
+import EditPopup from './components/EditPopup'
 
 // const dummydata = [
 //     {
@@ -49,17 +50,53 @@ import { useSelector } from 'react-redux'
 // ]
 
 const Home = () => {
-   const {notes = []} = useSelector((state)=>state.notes);
-   // console.log('incomingState',incomingState);
+   const {notes = [], searchQuery } = useSelector((state)=>state.notes);
    
+   const [info, setInfo] = useState({
+    editpopup:false,
+    selectedNote:null,
+   });
+
+   const openEditPopup = useCallback((val)=>{
+    setInfo((prev)=>({...prev, editpopup:true, selectedNote:val}))
+   },[]);
+
+   const closeEditPopup = useCallback(()=>{
+    setInfo((prev)=>({...prev, editpopup:false, selectedNote:null}))
+   },[]);
+
+   // console.log('incomingState',incomingState);
+
+   const pinnedData = useMemo(()=>{
+    return notes?.filter((ele)=>ele?.label==='notes' && ele?.pinned && ele?.title?.toLowerCase().includes(searchQuery.toLowerCase()));
+   }, [notes, searchQuery])
+
+   const unpinnedData = useMemo(()=>{
+    return notes?.filter((ele)=>ele?.label==='notes' && !ele?.pinned && ele?.title?.toLowerCase().includes(searchQuery.toLowerCase()));
+   }, [notes, searchQuery])
+
   return (
     <div className='HomeParentContainer'>
       <CreateComponent/>
-      <div className="notesrendercontainer">
-         {notes?.filter((ele)=>ele?.label==='notes')?.map((item,index)=>(
-            <NoteComponent key={index} data={item} source={'notes'}/>
+      <div>
+        {pinnedData?.length?<span className='pinnedtexttitle'>Pinnned</span>:''}
+        <div className="notesrendercontainer">
+         {pinnedData?.map((item,index)=>(
+            <NoteComponent key={index} data={item} source={'notes'} onClick={openEditPopup}/>
          ))}   
       </div>
+      </div>
+      
+      <div>
+        {pinnedData && unpinnedData?.length?<span className='pinnedtexttitle'>Others</span>:''}
+        <div className="notesrendercontainer">
+         {unpinnedData.map((item,index)=>(
+            <NoteComponent key={index} data={item} source={'notes'} onClick={openEditPopup}/>
+         ))}   
+      </div>
+      </div>
+      <EditPopup open={info?.editpopup} onClose={closeEditPopup} selectedNote={info?.selectedNote}/>
+      
     </div>
   )
 }

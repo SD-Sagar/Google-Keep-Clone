@@ -92,7 +92,9 @@ function CreateComponent() {
                onclose={toggleBackgroundOptions} 
                handlebackgroundoptionchange={handlebackgroundoptionchange}
                resetcompletecomponent={info?.resetcompletecomponent}
-               handleresetchanges={handleresetchanges}/> 
+               handleresetchanges={handleresetchanges}
+               activebackgroundcolor={info?.activebackgroundcolor}
+               activebackgroundimage={info?.activebackgroundimage}/> 
     </div>
   )
 }
